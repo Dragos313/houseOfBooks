@@ -13,6 +13,9 @@ model Store {
   billboards      Billboard[] @relation("StoreToBillboard")
   categories      Category[] @relation("StoreToCategory")
   publishingHouses PublishingHouse[] @relation("StoreToPublishingHouse")
+  writers         Writer[] @relation("StoreToWriter")
+  books           Book[] @relation("StoreToBook")
+  authors         Author[] @relation("StoreToAuthor")
   createdAt        DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -54,4 +57,55 @@ model PublishingHouse {
   updatedAt   DateTime  @updatedAt
 
   @@index([storeId])
+}
+
+model Language {
+  id          String    @id @default(uuid())
+  name        String    
+  code        String    @unique
+}
+
+model Writer {
+  id        String    @id @default(uuid())
+  storeId   String
+  store     Store     @relation("StoreToWriter", fields: [storeId], references: [id])
+  authors   Author[]  @relation("WriterToAuthor")
+  name      String    
+  code      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([storeId])
+}
+
+
+model Book {
+  id        String    @id @default(uuid())
+  storeId   String
+  store     Store     @relation("StoreToBook", fields: [storeId], references: [id])
+  authors   Author[]  @relation("BookToAuthor")
+  name      String    
+  code      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([storeId])
+}
+
+
+model Author {
+  id        String    @id @default(uuid())
+  storeId   String
+  store     Store     @relation("StoreToAuthor", fields: [storeId], references: [id])
+  bookId    String
+  book      Book      @relation("BookToAuthor", fields: [bookId], references: [id])
+  writerId  String
+  writer    Writer    @relation("WriterToAuthor", fields: [writerId], references: [id])
+  name      String    
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([storeId])
+  @@index([bookId])
+  @@index([writerId])
 }

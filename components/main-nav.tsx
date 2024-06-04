@@ -31,18 +31,23 @@ export function MainNav({
     },
     {
       href: `/${params.storeId}/publishingHouses`,
-      label: 'Publishing Houses',
+      label: 'Publishers',
       active: pathname === `/${params.storeId}/publishingHouses`,
     },
     {
-      href: `/${params.storeId}/colors`,
-      label: 'Colors',
-      active: pathname === `/${params.storeId}/colors`,
+      href: `/${params.storeId}/writers`,
+      label: 'Writer',
+      active: pathname === `/${params.storeId}/writers`,
     },
     {
-      href: `/${params.storeId}/products`,
-      label: 'Products',
-      active: pathname === `/${params.storeId}/products`,
+      href: `/${params.storeId}/books`,
+      label: 'Book',
+      active: pathname === `/${params.storeId}/books`,
+    },
+    {
+      href: `/${params.storeId}/authors`,
+      label: 'Author',
+      active: pathname === `/${params.storeId}/authors`,
     },
     {
       href: `/${params.storeId}/orders`,
