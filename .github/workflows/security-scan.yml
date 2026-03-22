@@ -1,10 +1,6 @@
 name: DevSecOps Scan
 on: [push, pull_request]
 
-# Aceasta este setarea GLOBALĂ care oprește avertismentul
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
-
 jobs:
   security:
     runs-on: ubuntu-latest
@@ -12,7 +8,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 24
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '24'
