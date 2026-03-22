@@ -1,17 +1,14 @@
 name: DevSecOps Scan
 on: [push, pull_request]
 
-# Aceasta este setarea care forțează Node 24
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
 jobs:
   security:
     runs-on: ubuntu-latest
-    steps:
-      - name: Force Node 24 Path
-        run: echo "NODE_OPTIONS=--max-old-space-size=4096" >> $GITHUB_ENV
 
+    steps:
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -21,11 +18,9 @@ jobs:
           node-version: '24'
 
       - name: Install dependencies
-        run: npm install  # Obligatoriu pentru TypeScript ca Snyk să vadă bibliotecile
-
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
+        run: npm install
         env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --severity-threshold=high
+          NODE_OPTIONS: --max-old-space-size=4096
+
+      - name: Run Snyk
+        uses: snyk/actions/node@master
