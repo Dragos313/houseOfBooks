@@ -1,15 +1,20 @@
 name: DevSecOps Scan
 on: [push, pull_request]
 
+# Setăm variabila la nivel de workflow pentru a forța Node 24 peste tot
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
 jobs:
   security:
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true' 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Install dependencies
         run: npm install
+
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
         env:
