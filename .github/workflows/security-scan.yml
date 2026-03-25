@@ -17,11 +17,9 @@ jobs:
           node-version: '24'
 
       - name: Install dependencies
-        # Fără asta, Snyk nu vede bibliotecile proiectului houseOfBooks
         run: npm install 
 
       - name: Run Snyk to check for vulnerabilities
-        # "continue-on-error" garantează bifa verde chiar dacă ai vulnerabilități
         continue-on-error: true 
         uses: snyk/actions/node@master
         env:
